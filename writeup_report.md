@@ -14,7 +14,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./images/history_before.png "Learning history it is over-fitting"
+[image1]: ./images/history_before.png "Learning history in which over-fitting happened"
 [image2]: ./images/history_with_dropout.png "Learning history with Drop out layer"
 [image3]: ./images/left.jpg "Left camera image"
 [image4]: ./images/center.jpg "Center camera image"
@@ -72,19 +72,19 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+My first step was to use a convolution neural network model which is NVIDIA's work illustrated in the lesson material.
 
-My first step was to use a convolution neural network model which is NVIDIA's work as illustrated in the lesson material.
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-After introducing Drop-out layer, that over-fitting was resolved as shown in the below graph.
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. 
 
 ![Learning history: overfitting][image1]
 
-The final step was to run the simulator to see how well the car was driving around track one.
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+This implied that the model was overfitting. 
+After introducing Drop-out layer, that over-fitting was resolved as shown in the below graph.
 
 ![Learning history: with Dropout][image2]
+
+The final step was to run the simulator to see how well the car was driving around track one.
+At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 #### 2. Final Model Architecture
 
@@ -93,7 +93,7 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 320x160x3 RGB image   					| 
-| Cropping         	| 50 lines in top and 20 lines bottom are removed	| 
+| Cropping         	| 50 lines from top and 20 lines from bottom are removed | 
 | Normalize and 0 mean  | lambda x: x / 127.5 - 1.0   					| 
 | Convolution 5x5     	| 24 features  	|
 | RELU					|												|
@@ -107,11 +107,11 @@ My final model consisted of the following layers:
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  				|
 | Dropout				| Drop rate = 20 %								|
-| Convolution 5x5     	| 64 features  	|
+| Convolution 3x3     	| 64 features  	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  				|
 | Dropout				| Drop rate = 20 %								|
-| Convolution 5x5     	| 64 features  	|
+| Convolution 3x3     	| 64 features  	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  				|
 | Dropout				| Drop rate = 20 %								|
@@ -126,11 +126,11 @@ My final model consisted of the following layers:
 
 #### 3. Creation of the Training Set & Training Process
 
-I recorded the below 3 types of driving for a several laps each.
+I recorded the below 3 types of driving for a couple of laps each.
 
 1. Center lane driving as nomarl case
 1. Zig-Zag driving as recovery driving from one side back to center
-1. The above driving in opposite direction of the track for the generalization in learning
+1. The above drivings in opposite direction of the track for the generalization in learning
 
 I used the below 2 simulators for different purpose described below.
 
@@ -148,10 +148,9 @@ To augment the data sat, I also flipped images and angles thinking that this wou
 ![original][image6]
 ![flipped][image7]
 
-Regarding the left and right camera image, the corresponding angles is corrected to add/subract some value (=0.2) so that it gets as if it is a center image.
+Regarding the left and right camera image, the corresponding steering angles is adjusted to add/subract some value (=0.2) so that it gets as if it is a center image.
 
 Finally I got the following number of data set.
-  * center: 22491, left/right: 8769 each
 
 | Images captured in | Number |
 |:---------:|:-----:|
